@@ -1,0 +1,7 @@
+lanugage: node_js
+node_js:
+  - 12
+script:
+  - yarn build
+  - cd test/ng9 && yarn
+  - cd test/ng9 && yarn test

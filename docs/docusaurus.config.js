@@ -1,8 +1,8 @@
 module.exports = {
-  title: 'Ng Vacuum',
+  title: 'NgVacuum',
   tagline: 'Angular unit tests in a vacuum',
   url: 'https://code.hmil.fr/ng-vacuum',
-  baseUrl: '/',
+  baseUrl: '/ng-vacuum/',
   favicon: 'img/vacuum-cleaner.ico',
   organizationName: 'hmil', // Usually your GitHub org/user name.
   projectName: 'ng-vacuum', // Usually your repo name.

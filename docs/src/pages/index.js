@@ -74,7 +74,7 @@ function Home() {
               Get Started
             </Link>
             <div>
-              <img alt="npm" src="https://img.shields.io/npm/v/ng-vacuum"></img>
+              <a href="https://www.npmjs.com/package/ng-vacuum"><img alt="latest version on npm" src="img/version-badge.svg" /></a>
             </div>
           </div>
         </div>
@@ -83,8 +83,11 @@ function Home() {
         <section className={styles.pitch}>
           <div className="container">
             <p>
-              NgVacuum lets you test angular components and services in a vacuum, automatically mocking all of their dependencies.<br />
-              Under the hood, it uses <a href="https://github.com/hmil/omnimock">OmniMock</a> to safely mock all constructor dependencies, and <a href="https://github.com/ike18t/ng-mocks">ng-mocks</a> to make the rendering <em>shallow</em>.
+              NgVacuum lets you test angular components and services in a vacuum; automatically mocking all dependencies.<br />
+              It uses <a href="https://github.com/hmil/omnimock">OmniMock</a> to safely mock all constructor dependencies, and <a href="https://github.com/ike18t/ng-mocks">ng-mocks</a> to render components <em>shallow</em>.
+            </p>
+            <p>
+              NgVacuum is ideal for <a href="https://www.agilealliance.org/glossary/tdd/">TDD</a>, and those looking for a systematic way to add good tests to their project.
             </p>
           </div>
         </section>
