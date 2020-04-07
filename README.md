@@ -1,4 +1,4 @@
-# NgVacuum
+# NgVacuum [![Build Status](https://travis-ci.org/hmil/ng-vacuum.svg?branch=master)](https://travis-ci.org/hmil/ng-vacuum)
 
 _Angular tests in a vacuum._
 
