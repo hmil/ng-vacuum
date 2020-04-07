@@ -3,4 +3,4 @@ node_js:
   - 12
 script:
   - yarn build
-  - cd test/ng9 && yarn && yarn test
+  - cd test/ng9 && yarn && yarn test:ci
