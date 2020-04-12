@@ -137,12 +137,12 @@ import { getMock } from 'ng-vacuum';
 
 // snip
 
-    it('redirects to logout when trying to access the lobby while authenticated', () => {
-        const mockOfAuthService = getMock(AuthService);
-        when(mockOfAuthService.isAuthenticated()).return(true);
-        const result = service.checkAccess('lobby');
-        expect(result).toBe(false);
-    });
+it('redirects to logout when trying to access the lobby while authenticated', () => {
+    const mockOfAuthService = getMock(AuthService);
+    when(mockOfAuthService.isAuthenticated()).return(true);
+    const result = service.checkAccess('lobby');
+    expect(result).toBe(false);
+});
 ```
 
 ### Expect calls
@@ -152,14 +152,14 @@ At this point, our test is still not passing. It complains that no behavior was 
 Again, we use the DSL to specify what happens when this method is called.
 
 ```ts
-    it('redirects to logout when trying to access the lobby while authenticated', () => {
-        when(getMock(AuthService).isAuthenticated()).return(true);
-        // Router.navigate returns a promise.
-        // We use the shorthand `resolve` to return a promise resolved with the value `true`
-        when(getMock(Router).navigate(['logout'])).resolve(true);
-        const result = service.checkAccess('lobby');
-        expect(result).toBe(false);
-    });
+it('redirects to logout when trying to access the lobby while authenticated', () => {
+    when(getMock(AuthService).isAuthenticated()).return(true);
+    // Router.navigate returns a promise.
+    // We use the shorthand `resolve` to return a promise resolved with the value `true`
+    when(getMock(Router).navigate(['logout'])).resolve(true);
+    const result = service.checkAccess('lobby');
+    expect(result).toBe(false);
+});
 ```
 
 But in this case we don't just want to specify what to do when this method is called. We want to _verify_ that this method was called with the appropriate arguments.
@@ -167,14 +167,14 @@ But in this case we don't just want to specify what to do when this method is ca
 We us the [_quantifier `.once()`_](https://github.com/hmil/omnimock#quantifiers) to specify that we expect this method to be called exactly once.
 
 ```ts
-    it('redirects to logout when trying to access the lobby while authenticated', () => {
-        // Doesn't care if this is used or not
-        when(getMock(AuthService).isAuthenticated()).return(true);
-        // Throws an error if this is never called, or called more than once
-        when(getMock(Router).navigate(['logout'])).resolve(true).once();
-        const result = service.checkAccess('lobby');
-        expect(result).toBe(false);
-    });
+it('redirects to logout when trying to access the lobby while authenticated', () => {
+    // Doesn't care if this is used or not
+    when(getMock(AuthService).isAuthenticated()).return(true);
+    // Throws an error if this is never called, or called more than once
+    when(getMock(Router).navigate(['logout'])).resolve(true).once();
+    const result = service.checkAccess('lobby');
+    expect(result).toBe(false);
+});
 ```
 
 Inceed, this test fails when we remove the call in `access-control.service.ts`.
