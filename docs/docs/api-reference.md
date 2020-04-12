@@ -24,7 +24,7 @@ describe('MyService', () => {
 });
 ```
 
-### `getMock<T>(token: InjectionToken<T>): Mock<T>`
+### `getMock<T>(token: Type<T> | InjectionToken<T>): Mock<T>`
 
 Returns the mock associated with this injection token. If no such mock exists yet, it is created.
 
@@ -39,7 +39,7 @@ const dependencyService = getMock(MyServiceDependency);
 when(dependencyService.greet('John')).return('Hello John').once();
 ```
 
-### `renderComponent<T>(component: Type<T>, module: TODO): TODO`
+### `renderComponent<T>(component: Type<T>, module: Type<any> | ModuleWithProviders): Promise<Rendering<T, never>>`
 
 Shallow-renders a component, meaning that its children components are not rendered themselves, and any constructor dependency is mocked.
 
@@ -47,7 +47,7 @@ TODO example
 
 ## Advanced API
 
-### `createMock<T>(token: InjectionToken<T>, backing?: Partial<T>): Mock<T>`
+### `createMock<T>(token: Type<T> | InjectionToken<T>, backing?: Partial<T>): Mock<T>`
 
 Manually create a mock with an optional backing object.
 
@@ -58,7 +58,7 @@ Any subsequent call to `getMock` with the same injection token will return the s
 TODO: example
 
 
-### `getShallow<T>(component: Type<T>, module: TODO): TODO`
+### `getShallow<T>(component: Type<T>, module: Type<any> | ModuleWithProviders): Shallow<T>`
 
 Configures and return a Shallow renderer (TODO link).
 
@@ -66,7 +66,7 @@ Use this method if you would like to further customize the renderer. In most cas
 
 TODO example
 
-### `configureTestbed(service: Type<T>)`
+### `configureTestBed(service: Type<T>): void`
 
 Configures the angular TestBed with mocks for all of the dependencies of the service.
 
@@ -77,4 +77,39 @@ Example:
 configureTestBed(MyService);
 TestBed.overrideProvider(MyDependency, { useValue: fakeDependency });
 const service = TestBed.inject(MyService);
+```
+
+## Utilities
+
+### `class BasePage<T>`
+
+Base class for page objects. See [base-class.ts](https://github.com/hmil/ng-vacuum/blob/master/src/utils/base-page.ts) for detailed documentation.
+
+Example:
+```ts
+class Page extends BasePage<MyComponent> {
+    get loginButton(): HTMLElement {
+        return this.rendering.find('[test-id=login-button]').nativeElement;
+    }
+
+    get fancyButton() {
+        return this.rendering.findComponent(FancyButtonComponent);
+    }
+}
+```
+
+## `catchUnhandledErrors(): void`
+
+Catches all unhandled errors during test execution and fails the test if any error occurs.
+
+The default angular config allows many errors to escape the test suite which can lead to silent errors.
+Call this utility in the `test.ts` file to catch these errors before they can escape.
+ 
+Example:
+```ts
+// src/test.ts
+
+import { catchUnandledErrors } from 'ng-vacuum';
+
+catchUnhandledErrors();
 ```

@@ -59,7 +59,7 @@ It is good practice to create a [Page object model](#TODO) for component tests. 
 NgVcuum provides a utility class to simplify the setup of the page object
 
 ```ts
-import { BasePage } from 'ng-vacuum';
+import { BasePage, renderComponent } from 'ng-vacuum';
 
 describe('MyComponent', () => {
 
@@ -73,8 +73,8 @@ describe('MyComponent', () => {
 class Page extends BasePage<MyComponent> { }
 ```
 
-[`renderComponent`](#TODO) internally invokes [shallow-render](#TODO) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
-If you would like to get a reference to the [Shallow](#TODO) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](#TODO) instead.
+[`renderComponent`](./api-reference#rendercomponenttcomponent-typet-module-typeany--modulewithproviders-promiserenderingt-never) internally invokes [shallow-render](#TODO) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
+If you would like to get a reference to the [Shallow](#TODO) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](./api-reference#getshallowtcomponent-typet-module-typeany--modulewithproviders-shallowt) instead.
 
 
 ## Populate the page object
@@ -211,6 +211,6 @@ it('presents a fancy button when authenticated', fakeAsync(() => {
 }));
 ```
 
-## Test component bindings
+## Component bindings
 
 TODO

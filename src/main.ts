@@ -61,7 +61,7 @@ function createMocks(target: Type<unknown>) {
     }
 }
 
-export function createMock<T>(token: Type<T> | InjectionToken<T>, backing?: Partial<T>) {
+export function createMock<T>(token: Type<T> | InjectionToken<T>, backing?: Partial<T>): Mock<T> {
     if (store.hasMock(token)) {
         // tslint:disable-next-line: max-line-length
         throw new Error('A mock for this token already exists. Make sure to call createMock at most once and before creating any service or component.');
@@ -77,15 +77,17 @@ export function getMock<T>(token: Type<T> | InjectionToken<T>): Mock<T> {
     return m as Mock<T>;
 }
 
-export function getService<T>(testService: Type<T>): T {
-
-    createMocks(testService);
-
+export function configureTestBed(service: Type<unknown>): void {
     const providers: any[] = store.getMockProviders();
-    providers.push(testService);
+    providers.push(service);
     TestBed.configureTestingModule({
         providers
     });
+}
+
+export function getService<T>(testService: Type<T>): T {
+    createMocks(testService);
+    configureTestBed(testService);
     return TestBed.inject(testService);
 }
 
