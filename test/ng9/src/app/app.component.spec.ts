@@ -11,9 +11,10 @@ describe('AppComponent', () => {
 
     let page: Page;
 
-    let isAuthenticated = false;
+    let isAuthenticated: boolean;
 
     beforeEach(async () => {
+        isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
         page = new Page(await renderComponent(AppComponent, AppModule));
     });
