@@ -7,7 +7,7 @@ _Angular tests in a vacuum._
 
 ✅ Compatible with angular **7**, **8** and **9**.
 
-## [📖 Documentation](https://code.hmil.fr/ng-vacuum)
+📖 [**Documentation**](https://code.hmil.fr/ng-vacuum)
 
 ---
 
