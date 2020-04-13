@@ -83,7 +83,7 @@ function Home() {
         <section className={styles.pitch}>
           <div className="container">
             <p>
-              NgVacuum lets you test angular components and services in a vacuum; automatically mocking all dependencies.<br />
+              NgVacuum lets you test angular components and services in a vacuum at a minimal cost; All dependencies are mocked automatically so you can get going in seconds.<br />
               It uses <a href="https://github.com/hmil/omnimock">OmniMock</a> to safely mock all constructor dependencies, and <a href="https://github.com/ike18t/ng-mocks">ng-mocks</a> to render components <em>shallow</em>.
             </p>
             <p>

@@ -7,6 +7,20 @@ _Angular tests in a vacuum._
 
 ---
 
+Roadmap
+
+- [x] PoC
+- [x] Packaging
+- [x] Doc site
+- [x] Document service tests
+- [x] Document component tests
+- [x] Test component tests
+- [x] Finalize API doc
+- [ ] Document property bindings
+- [ ] Test ng8 + ng7
+
+---
+
 NgVacuum lets you write true unit tests for your Angular components and services in complete isolation and with minimal boilerplate.
 
 This is what a typical test with NgVacuum looks like.
@@ -64,15 +78,3 @@ describe('AccessControlService', () => {
 This example barly scratches the surface. NgVacuum packs a ton of useful features like shallow rendering and type-safe mocks which are designed to maximize the usefulness of unit tests while minimizing their maintainance cost.
 
 Read the [online documentation](https://code.hmil.fr/ng-vacuum/) to get started.
-
----
-
-Roadmap
-
-- [x] PoC
-- [x] Packaging
-- [x] Doc site
-- [x] Document service tests
-- [ ] Document component tests
-- [ ] Test component tests
-- [ ] Finalize API doc

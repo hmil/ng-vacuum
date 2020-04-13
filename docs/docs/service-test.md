@@ -223,6 +223,6 @@ describe('AccessControlService', () => {
 });
 ```
 
-TODO: Stuff left over for an "advanced" section
-- If we use getters/setters in authService instead of methods
-- Test if access-control service subscribes to an observable in authService
+The combo NgVacuum + OmniMock offers an extremely powerful mocking machinery which is able to mock just about anything; from methods to members, accessors and more. We cover some common use cases later in [mocking techniques](./mocking-techniques).
+
+But first, let's take a look at how to mock a component.

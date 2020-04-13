@@ -22,7 +22,7 @@ describe('AppComponent', () => {
         when(getMock(AuthService).setAuthenticated(true)).return().once();
         page.detectChanges();
         page.loginButton.click();
-        // expect().nothing();
+        expect().nothing();
     }));
 
     it('presents a fancy button when authenticated', fakeAsync(() => {

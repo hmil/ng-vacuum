@@ -4,7 +4,6 @@ title: Setup
 sidebar_label: Setup
 ---
 
-NgVacuum uses [omnimock](TODO) and [shallow-render](TODO) to mock service and component dependencies.
 
 Add all dependencies to your project with yarn:
 
@@ -17,3 +16,4 @@ Or with npm:
 npm install --save-dev ng-vacuum shallow-render omnimock
 ```
 
+NgVacuum uses [OmniMock](https://github.com/hmil/omnimock) and [shallow-render](https://github.com/getsaf/shallow-render) to mock service and component dependencies. You must install all three packages separately.

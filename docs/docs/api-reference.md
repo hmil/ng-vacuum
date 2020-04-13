@@ -60,7 +60,7 @@ TODO: example
 
 ### `getShallow<T>(component: Type<T>, module: Type<any> | ModuleWithProviders): Shallow<T>`
 
-Configures and return a Shallow renderer (TODO link).
+Configures and return a [Shallow renderer](https://getsaf.github.io/shallow-render/#shallow-class).
 
 Use this method if you would like to further customize the renderer. In most cases, `renderComponent` should be used instead.
 

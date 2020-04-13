@@ -6,6 +6,8 @@ sidebar_label: Test a Component
 
 So far, we've seen how to automatically mock all dependencies of a service in order to test it in isolation. Testing a component is mostly the same, but we also need to render the template and mock the components used in that template.
 
+**tl;dr**: jump directly to the [recap](#recap) for the full code example.
+
 ## Sample project
 
 We consider the following sample component.
@@ -49,12 +51,12 @@ export class MyComponent {
 }
 ```
 
-The sample component uses the global `console` object, injected using an [`InjectionToken`](#TODO), to give this tutorial a bit more uumpf.
+The sample component uses the global `console` object, injected using an [`InjectionToken`](https://angular.io/api/core/InjectionToken), to give this tutorial a bit more uumpf.
 
 
 ## Scaffolding
 
-It is good practice to create a [Page object model](#TODO) for component tests. The page object abstracts away the selectors to access elements rendered by the template and exposes a nice interface for the tests.
+It is good practice to create a [page object](https://angular.io/guide/testing#use-a-page-object) for component tests. The page object abstracts away the selectors to access elements rendered by the template and exposes a nice interface for the tests.
 
 NgVcuum provides a utility class to simplify the setup of the page object
 
@@ -73,8 +75,8 @@ describe('MyComponent', () => {
 class Page extends BasePage<MyComponent> { }
 ```
 
-[`renderComponent`](./api-reference#rendercomponenttcomponent-typet-module-typeany--modulewithproviders-promiserenderingt-never) internally invokes [shallow-render](#TODO) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
-If you would like to get a reference to the [Shallow](#TODO) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](./api-reference#getshallowtcomponent-typet-module-typeany--modulewithproviders-shallowt) instead.
+[`renderComponent`](./api-reference#rendercomponenttcomponent-typet-module-typeany--modulewithproviders-promiserenderingt-never) internally invokes [shallow-render](https://getsaf.github.io/shallow-render/#shallow-render) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
+If you would like to get a reference to the [Shallow](https://getsaf.github.io/shallow-render/#shallow-class) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](./api-reference#getshallowtcomponent-typet-module-typeany--modulewithproviders-shallowt) instead.
 
 
 ## Populate the page object
@@ -95,7 +97,7 @@ class Page extends BasePage<MyComponent> {
 }
 ```
 
-We use the `rendering` instance member from [`BasePage`](#TODO) to find components in the template. See the documentation of [TODO](#TODO) for details.
+We use the `rendering` instance member from [`BasePage`](./api-reference#class-basepaget) to find components in the template.
 
 ## Write a test
 
@@ -211,6 +213,59 @@ it('presents a fancy button when authenticated', fakeAsync(() => {
 }));
 ```
 
+
 ## Component bindings
 
 TODO
+
+
+## Recap
+
+The complete test suite is shown below.
+
+```ts
+describe('AppComponent', () => {
+
+    let page: Page;
+    let isAuthenticated = false;
+
+    beforeEach(async () => {
+        // Mock data required by the template
+        when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
+        page = new Page(await renderComponent(AppComponent, AppModule));
+    });
+
+    it('lets user log in when not authenticated', fakeAsync(() => {
+        // Ensure the tempalte is fully rendered
+        page.detectChanges();
+        // Prepare call expectation for setAuthenticated, then click on login
+        when(getMock(AuthService).setAuthenticated(true)).return().once();
+        page.loginButton.click();
+        expect().nothing();
+    }));
+
+    it('presents a fancy button when authenticated', fakeAsync(() => {
+        // Change the mock data and re-render the template
+        isAuthenticated = true;
+        page.detectChanges();
+        // Checks the rendered view
+        expect(page.fancyButton.confirmLabel).toBe('Got it');
+        expect(page.fancyButton.cancelLabel).toBe('Nooo');
+        // Prepare call expectation and click on the button
+        when(getMock(CONSOLE).log('confirm')).return().once();
+        page.fancyButton.clicked.emit('confirm');
+    }));
+});
+
+// Page object abstracts away the template selectors
+class Page extends BasePage<AppComponent> {
+
+    get loginButton(): HTMLElement {
+        return this.rendering.find('[test-id=login-button]').nativeElement;
+    }
+
+    get fancyButton() {
+        return this.rendering.findComponent(FancyButtonComponent);
+    }
+}
+```
