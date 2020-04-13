@@ -7,21 +7,11 @@ _Angular tests in a vacuum._
 
 ✅ Compatible with angular **7**, **8** and **9**.
 
----
-
-Roadmap
-
-- [x] PoC
-- [x] Packaging
-- [x] Doc site
-- [x] Document service tests
-- [x] Document component tests
-- [x] Test component tests
-- [x] Finalize API doc
-- [ ] Document property bindings
-- [x] Test ng8 + ng7
+## [📖 Documentation](https://code.hmil.fr/ng-vacuum)
 
 ---
+
+## Overview
 
 NgVacuum lets you write true unit tests for your Angular components and services in complete isolation and with minimal boilerplate.
 

@@ -17,8 +17,6 @@ NgVacuum uses [OmniMock](https://github.com/hmil/omnimock) and [shallow-render](
 
 Use shallow-render version 9.
 
-Add all dependencies to your project with yarn:
-
 ```
 yarn add -D ng-vacuum shallow-render@9 omnimock
 ```
@@ -26,8 +24,6 @@ yarn add -D ng-vacuum shallow-render@9 omnimock
 ## Angular 7 & 8
 
 Use shallow-render version 8.
-
-Add all dependencies to your project with yarn:
 
 ```
 yarn add -D ng-vacuum shallow-render@9 omnimock
