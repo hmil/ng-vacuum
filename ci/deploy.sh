@@ -5,6 +5,13 @@ if [ -z "$REPO_ROOT" ]; then
     exit 1
 fi
 
+git fetch --tags
+
+if [ -z $(git tag --contains HEAD) ]; then
+    echo "Skipping release because this is not a tagged commit"
+    exit 0
+fi
+
 echo "=== Configuring credentials"
 git config --global user.name "${GH_NAME}"
 git config --global user.email "${GH_EMAIL}"
