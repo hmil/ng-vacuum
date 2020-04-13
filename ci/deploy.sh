@@ -16,7 +16,7 @@ echo "=== Configuring credentials"
 git config --global user.name "${GH_NAME}"
 git config --global user.email "${GH_EMAIL}"
 echo "machine github.com login ${GH_NAME} password ${GH_TOKEN}" > ~/.netrc
-echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$REPO_ROOT/.npmrc"
+echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "${HOME}/.npmrc"
 
 echo "=== Deploying npm module"
 cd "$REPO_ROOT/dist"
