@@ -88,7 +88,7 @@ export function configureTestBed(service: Type<unknown>): void {
 export function getService<T>(testService: Type<T>): T {
     createMocks(testService);
     configureTestBed(testService);
-    return TestBed.inject(testService);
+    return TestBed.get(testService);
 }
 
 export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders): Shallow<T> {

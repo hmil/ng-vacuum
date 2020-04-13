@@ -180,9 +180,10 @@ describe('AppComponent', () => {
 
     let page: Page;
 
-    let isAuthenticated = false;
+    let isAuthenticated: boolean;
 
     beforeEach(async () => {
+        isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
         page = new Page(await renderComponent(AppComponent, AppModule));
     });
@@ -227,9 +228,10 @@ The complete test suite is shown below.
 describe('AppComponent', () => {
 
     let page: Page;
-    let isAuthenticated = false;
+    let isAuthenticated: boolean;
 
     beforeEach(async () => {
+        isAuthenticated = false;
         // Mock data required by the template
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
         page = new Page(await renderComponent(AppComponent, AppModule));
