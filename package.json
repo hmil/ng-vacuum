@@ -1,14 +1,15 @@
 {
     "$schema": "./node_modules/ng-packagr/package.schema.json",
     "name": "ng-vacuum",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "angular testing in a vacuum",
     "main": "dist/index.js",
     "repository": "https://github.com/hmil/ng-vacuum.git",
     "author": "Hadrien Milano <hmil.fr>",
     "license": "MIT",
     "scripts": {
-        "build": "ng-packagr -p package.json"
+        "build": "ng-packagr -p package.json",
+        "release": "./scripts/release.sh"
     },
     "devDependencies": {
         "@angular/animations": "9.1.0",
