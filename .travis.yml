@@ -3,7 +3,8 @@ node_js:
   - 12
 script:
   - yarn build
-  - cd test/ng9 && yarn && yarn test:ci
+  - cd "${TRAVIS_BUILD_DIR}/test/ng9" && yarn && yarn test:ci
+  - cd "${TRAVIS_BUILD_DIR}/test/ng8" && yarn && yarn test:ci
 deploy:
   provider: script
   script: bash ci/deploy.sh

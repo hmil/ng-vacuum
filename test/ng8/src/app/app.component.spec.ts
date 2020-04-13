@@ -1,31 +1,47 @@
-import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { BasePage, renderComponent, getMock } from 'ng-vacuum';
+import { AppModule } from './app.module';
+import { when } from 'omnimock';
+import { AuthService } from './auth/auth.service';
+import { fakeAsync } from '@angular/core/testing';
+import { FancyButtonComponent } from './fancy-button.component';
+import { CONSOLE } from './auth/app.providers';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    let page: Page;
 
-  it(`should have as title 'ng8'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ng8');
-  });
+    let isAuthenticated = false;
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ng8 app is running!');
-  });
+    beforeEach(async () => {
+        when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
+        page = new Page(await renderComponent(AppComponent, AppModule));
+    });
+
+    it('lets user log in when not authenticated', fakeAsync(() => {
+        when(getMock(AuthService).setAuthenticated(true)).return().once();
+        page.detectChanges();
+        page.loginButton.click();
+        expect().nothing();
+    }));
+
+    it('presents a fancy button when authenticated', fakeAsync(() => {
+        isAuthenticated = true;
+        page.detectChanges();
+        expect(page.fancyButton.confirmLabel).toBe('Got it');
+        expect(page.fancyButton.cancelLabel).toBe('Nooo');
+        when(getMock(CONSOLE).log('confirm')).return().once();
+        page.fancyButton.clicked.emit('confirm');
+    }));
 });
+
+class Page extends BasePage<AppComponent> {
+
+    get loginButton(): HTMLElement {
+        return this.rendering.find('[test-id=login-button]').nativeElement;
+    }
+
+    get fancyButton() {
+        return this.rendering.findComponent(FancyButtonComponent);
+    }
+}
