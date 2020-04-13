@@ -8,7 +8,7 @@ script:
   - cd "${TRAVIS_BUILD_DIR}/test/ng7" && yarn && yarn test:ci
 deploy:
   provider: script
-  script: cd "${TRAVIS_BUILD_DIR}" && ./ci/deploy.sh
+  script: cd "${TRAVIS_BUILD_DIR}" && REPO_ROOT="${TRAVIS_BUILD_DIR}" ./ci/deploy.sh
   skip_cleanup: true
   on:
     tags: true
