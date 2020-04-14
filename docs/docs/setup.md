@@ -26,5 +26,5 @@ yarn add -D ng-vacuum shallow-render@9 omnimock
 Use shallow-render version 8.
 
 ```
-yarn add -D ng-vacuum shallow-render@9 omnimock
+yarn add -D ng-vacuum shallow-render@8 omnimock
 ```
