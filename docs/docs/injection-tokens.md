@@ -6,6 +6,8 @@ sidebar_label: Using Injection Tokens
 
 Use injection tokens to inject static values into a service.
 
+For instance, if you need to use [`window.history`](https://developer.mozilla.org/en-US/docs/Web/API/Window/history), then instead of using the global object directly, which would tightly couple your code to the DOM api, declare an injection token and request this dependency in the constructor.
+
 ```ts
 // my.service.ts
 export const RESULTS_PRE_PAGE = new InjectionToken<number>('RESULTS_PER_PAGE');
@@ -19,6 +21,8 @@ export class MyService {
     ) { }
 }
 ```
+
+Then, in your module, provide this dependency from the ambient API.
 
 ```ts
 // my.module.ts
@@ -35,6 +39,24 @@ import { HISROTY, RESULTS_PER_PAGE } from './my.service';
 export class MyModule {
 
 }
+```
+
+The history can now be mocked in unit tests. Note that this is a truly isolated test as there was no need for nasty tricks like patching the global browser API.
+
+```ts
+describe('MyService', () => {
+    let service: MyService;
+
+    beforeEach(() => {
+        service = getService(MyService);
+    });
+
+    it('navigates back when on product page', () => {
+        when(getMock(HISTORY).state).useValue({ name: 'product-details' });
+        when(getMock(HISTORY).back()).return().once();
+        service.goBackIfProduct();
+    });
+});
 ```
 
 :::note
