@@ -15,7 +15,6 @@ import { Mock, mock } from 'omnimock';
 import { Shallow } from 'shallow-render';
 import { Rendering } from 'shallow-render/dist/lib/models/rendering';
 import { store } from './mocks-store';
-import { BasePage, BasePageCtr } from './utils/base-page';
 
 /**
  * This file is an incubator for a potential library of helpers to write terse and correct tests

@@ -35,5 +35,3 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
         this.detectChanges();
     }
 }
-
-export type BasePageCtr<TComponent, TBindings> = { new(rendering: Rendering<TComponent, TBindings>): BasePage<TComponent, TBindings> };
