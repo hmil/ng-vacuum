@@ -215,11 +215,6 @@ it('presents a fancy button when authenticated', fakeAsync(() => {
 ```
 
 
-## Component bindings
-
-TODO
-
-
 ## Recap
 
 The complete test suite is shown below.
@@ -271,3 +266,7 @@ class Page extends BasePage<AppComponent> {
     }
 }
 ```
+
+---
+
+In the next section we will see how to test component bindings and `ngOnChanges` logic.

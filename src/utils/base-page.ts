@@ -7,13 +7,13 @@ export { Rendering } from 'shallow-render/dist/lib/models/rendering';
  * 
  * Wraps some of the boilerplate required to write clean component tests. 
  */
-export class BasePage<T> {
+export class BasePage<TComponent, TBindings = Partial<TComponent>> {
 
     /**
      * Build the new page object.
      * @param rendering The rendering object obtained with `renderComponent` or `getShallow().<...>.render();`.
      */
-    constructor(public readonly rendering: Rendering<T, unknown>) { }
+    constructor(public readonly rendering: Rendering<TComponent, TBindings>) { }
 
     /**
      * Detects changes to the component and flushes the fake async queue.
@@ -21,8 +21,25 @@ export class BasePage<T> {
      * an angular unit test.
      * Requires the test to run in the `fakeAsync` execution context.
      */
-    detectChanges() {
+    detectChanges(): void {
         this.rendering.fixture.detectChanges();
         flush();
+    }
+
+    /**
+     * Sets the values bound to the template.
+     * 
+     * The page object must be created with `getShallow(...).render()` and an initial binding value must be
+     * provided for each binding you intend to update.
+     * 
+     * @param values New values to assign to the component's `@Input` bindings.
+     */
+    setBoundValues(values: Partial<TBindings>): void {
+        for (const key of Object.keys(values) as Array<keyof TBindings>) {
+            if (key in values) {
+                this.rendering.bindings[key] = values[key] as any;
+            }
+        }
+        this.detectChanges();
     }
 }
