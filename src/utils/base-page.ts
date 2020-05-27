@@ -26,6 +26,9 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
         flush();
     }
 
+    /**
+     * Sets 
+     */
     setBoundValues(values: Partial<TBindings>): void {
         for (const key of Object.keys(values) as Array<keyof TBindings>) {
             if (key in values) {
