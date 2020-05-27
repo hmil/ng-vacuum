@@ -27,7 +27,12 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
     }
 
     /**
-     * Sets 
+     * Sets the values bound to the template.
+     * 
+     * The page object must be created with `getShallow(...).render()` and an initial binding value must be
+     * provided for each binding you intend to update.
+     * 
+     * @param values New values to assign to the component's `@Input` bindings.
      */
     setBoundValues(values: Partial<TBindings>): void {
         for (const key of Object.keys(values) as Array<keyof TBindings>) {
