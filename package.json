@@ -34,7 +34,7 @@
         "@angular/core": "^9.0.0",
         "@angular/platform-browser": "^9.0.0",
         "omnimock": "^0.8.0",
-        "shallow-render": "9.0.0"
+        "shallow-render": ">=8.0.0"
     },
     "ngPackage": {
         "lib": {
