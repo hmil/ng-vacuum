@@ -16,7 +16,7 @@ export class AppComponent {
     }
 
     constructor(
-        @Inject(CONSOLE) private readonly console: typeof window.console,
+        @Inject(CONSOLE) private readonly console: Console,
         private readonly authService: AuthService) { }
 
     public onLogin() {

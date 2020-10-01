@@ -1,3 +1,3 @@
 import { InjectionToken } from '@angular/core';
 
-export const CONSOLE = new InjectionToken<Window['console']>('CONSOLE');
+export const CONSOLE = new InjectionToken<Console>('CONSOLE');

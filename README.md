@@ -5,7 +5,7 @@ _Angular tests in a vacuum._
 [![Build Status](https://travis-ci.org/hmil/ng-vacuum.svg?branch=master)](https://travis-ci.org/hmil/ng-vacuum)
 [![Latest version](https://code.hmil.fr/ng-vacuum/img/version-badge.svg)](https://www.npmjs.com/package/ng-vacuum)
 
-✅ Compatible with angular **7**, **8** and **9**.
+✅ Compatible with angular **7**, **8**, **9** and **10**.
 
 📖 [**Documentation**](https://code.hmil.fr/ng-vacuum)
 

@@ -91,7 +91,7 @@ export function getService<T>(testService: Type<T>): T {
     return TestBed.get(testService);
 }
 
-export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders): Shallow<T> {
+export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders<any>): Shallow<T> {
 
     createMocks(testComponent);
 
@@ -106,7 +106,7 @@ export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | Mo
     return shallow;
 }
 
-export function renderComponent<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders): Promise<Rendering<T, never>> {
+export function renderComponent<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders<any>): Promise<Rendering<T, never>> {
     return getShallow(testComponent, testModule).render();
 }
 
