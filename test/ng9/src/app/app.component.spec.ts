@@ -13,11 +13,11 @@ describe('AppComponent', () => {
 
     let isAuthenticated: boolean;
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
-        page = new Page(await renderComponent(AppComponent, AppModule));
-    });
+        page = new Page(renderComponent(AppComponent, AppModule));
+    }));
 
     it('lets user log in when not authenticated', fakeAsync(() => {
         when(getMock(AuthService).setAuthenticated(true)).return().once();

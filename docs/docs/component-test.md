@@ -51,7 +51,7 @@ export class MyComponent {
 }
 ```
 
-The sample component uses the global `console` object, injected using an [`InjectionToken`](https://angular.io/api/core/InjectionToken), to give this tutorial a bit more uumpf.
+The sample component uses the global `console` object, injected using an [`InjectionToken`](https://angular.io/api/core/InjectionToken), to give this tutorial a bit more depth.
 
 
 ## Scaffolding
