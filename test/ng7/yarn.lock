@@ -4508,7 +4508,7 @@ ng-mocks@^7.8.0:
   integrity sha512-QopwqQUeEoUmHZdJeEDG3koJ5woHYeVe3TEfRjVHwLyLfJ/wdcNcepdei6j9n9Ne42SpS2bOETgKBqUT5NUsng==
 
 ng-vacuum@../../dist:
-  version "0.1.1"
+  version "0.2.1"
 
 nice-try@^1.0.4:
   version "1.0.5"
