@@ -1,5 +1,5 @@
 import { fakeAsync } from '@angular/core/testing';
-import { BasePage, getShallow, renderComponent } from 'ng-vacuum';
+import { BasePage, renderComponent } from 'ng-vacuum';
 
 import { AppModule } from './app.module';
 import { FancyButtonComponent } from './fancy-button.component';

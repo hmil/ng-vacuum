@@ -100,9 +100,9 @@ describe('SomeComponent', () => {
     
     let rendering: Rendering<SomeComponent, unknown>;
 
-    beforeEach(async () => {
-        rendering = await renderComponent(SomeComponent, AppModule);
-    });
+    beforeEach(fakeAsync(() => {
+        rendering = renderComponent(SomeComponent, AppModule);
+    }));
 
     it('can click a button', () => {
         // Bad: This test is not readable
@@ -117,9 +117,9 @@ describe('SomeComponent', () => {
 
     let page: Page;
     
-    beforeEach(async () => {
-        page = new Page(await renderComponent(SomeComponent, AppModule));
-    });
+    beforeEach(fakeAsync(() => {
+        page = new Page(renderComponent(SomeComponent, AppModule));
+    }));
 
     it('can click a button', () => {
         // Bad: This test is not readable
