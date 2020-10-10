@@ -82,7 +82,7 @@ export function getService<T>(testService: Type<T>): T {
  *
  * @param testModule 
  */
-export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders): Shallow<T> {
+export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders<any>): Shallow<T> {
 
     createMocks(testComponent);
 
@@ -109,7 +109,7 @@ export interface RenderSettings<TBindings> {
  */
 export function renderComponent<T, TBindings extends Partial<T>>(
     testComponent: Type<T>,
-    testModule: Type<any> | ModuleWithProviders,
+    testModule: Type<any> | ModuleWithProviders<any>,
     settings?: RenderSettings<TBindings>
 ): Rendering<T, TBindings> {
     let res: any;

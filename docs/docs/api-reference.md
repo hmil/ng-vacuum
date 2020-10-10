@@ -39,7 +39,7 @@ const dependencyService = getMock(MyServiceDependency);
 when(dependencyService.greet('John')).return('Hello John').once();
 ```
 
-### `renderComponent<T, TBindings>(component: Type<T>, module: Type<any> | ModuleWithProviders, options: RenderSettings<TBindings>): Promise<Rendering<T, never>>`
+### `renderComponent<T, TBindings>(component: Type<T>, module: Type<any> | ModuleWithProviders<any>, options: RenderSettings<TBindings>): Promise<Rendering<T, never>>`
 
 Shallow-renders a component, meaning that its children components are not rendered themselves, and any constructor dependency is mocked.
 
@@ -58,7 +58,7 @@ Any subsequent call to `getMock` with the same injection token will return the s
 TODO: example
 
 
-### `getShallow<T>(component: Type<T>, module: Type<any> | ModuleWithProviders): Shallow<T>`
+### `getShallow<T>(component: Type<T>, module: Type<any> | ModuleWithProviders<any>): Shallow<T>`
 
 Configures and return a [Shallow renderer](https://getsaf.github.io/shallow-render/#shallow-class).
 

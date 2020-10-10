@@ -1,0 +1,9 @@
+<div class="app">
+    <div *ngIf="isAuthenticated">
+        <app-fancy-button [confirmLabel]="'Got it'" [cancelLabel]="cancelLabel" (clicked)="onChoice($event)"></app-fancy-button>
+    </div>
+    <div *ngIf="!isAuthenticated">
+        <div class="message error">You must be authenticated</div>
+        <button test-id="login-button" (click)="onLogin()">Log in</button>
+    </div>
+</div>
