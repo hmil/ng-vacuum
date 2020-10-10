@@ -15,7 +15,7 @@ describe('FancyButtonComponent', () => {
 
     it('shows confirm and cancel labels', fakeAsync(() => {
         const page = new Page(renderComponent(FancyButtonComponent, AppModule, {
-            input: {
+            inputs: {
                 confirmLabel: 'hello',
                 cancelLabel: 'goodbye'
             }
@@ -23,7 +23,7 @@ describe('FancyButtonComponent', () => {
         expect(page.confirmBtnLabel).toBe('hello');
         expect(page.cancelBtnLabel).toBe('goodbye');
         expect(page.description).toBe('Chose between hello or goodbye');
-        page.setBoundValues({
+        page.setInputs({
             confirmLabel: 'Gruetzi',
             cancelLabel: 'Tschuss'
         });

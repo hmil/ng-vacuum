@@ -14,7 +14,7 @@ describe('AppComponent', () => {
     function createPage() {
         isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
-        page = new Page(renderComponent(AppComponent, AppModule));
+        return new Page(renderComponent(AppComponent, AppModule));
     }
 
     it('lets user log in when not authenticated', fakeAsync(() => {
