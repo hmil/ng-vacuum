@@ -52,22 +52,13 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
         return this.rendering.bindings;
     }
 
+    /**
+     * List of outputs exported by this component.
+     */
     get outputs(): { [P in KeysOfType<TComponent, EventEmitter<any>>]: OutputCapture<SubjectType<TComponent[P]>>} {
         let proxy = outputsCache.get(this);
         if (!proxy) {
-            const outputs = this.rendering.outputs;
-            proxy = new Proxy(
-                {},
-                {
-                    get: (_, key: keyof typeof outputs) => {
-                        const obs = outputs[key] as any;
-                        return {
-                            capture: () => captureObservable(obs),
-                            subscribe: (l: (event: any) => void) => obs.subscribe(l)
-                        };
-                    },
-                }
-            ) as any;
+            proxy = captureOutputs(this.rendering.outputs)
             outputsCache.set(this, proxy);
         }
         return proxy;
@@ -77,11 +68,36 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
 const outputsCache = new WeakMap<BasePage<any, any>, any>();
 
 interface OutputCapture<T> {
+    /**
+     * Capture all events emitted by this output starting now.
+     * 
+     * @returns a mutable array which gets appended each emitted value as it is emitted
+     */
     capture(): T[];
+
+    /**
+     * Subscribe to this event emitter
+     * @see EventEmitter.prototype.subscribe
+     */
     subscribe(listener: (event: T) => void): void;
 }
 
 type SubjectType<T extends Observable<any>> = T extends Observable<infer O> ? O : never;
+
+function captureOutputs(outputs: { [k: string]: EventEmitter<any>}) {
+    return new Proxy(
+        {},
+        {
+            get: (_, key: keyof typeof outputs) => {
+                const obs = outputs[key] as any;
+                return {
+                    capture: () => captureObservable(obs),
+                    subscribe: (l: (event: any) => void) => obs.subscribe(l)
+                };
+            },
+        }
+    ) as any;
+}
 
 function captureObservable<T>(obs: Observable<T>): T[] {
     let capture: T[] = [];
