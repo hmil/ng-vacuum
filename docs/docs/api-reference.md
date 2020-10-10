@@ -39,7 +39,7 @@ const dependencyService = getMock(MyServiceDependency);
 when(dependencyService.greet('John')).return('Hello John').once();
 ```
 
-### `renderComponent<T>(component: Type<T>, module: Type<any> | ModuleWithProviders<any>): Promise<Rendering<T, never>>`
+### `renderComponent<T, TBindings>(component: Type<T>, module: Type<any> | ModuleWithProviders<any>, options: RenderSettings<TBindings>): Promise<Rendering<T, never>>`
 
 Shallow-renders a component, meaning that its children components are not rendered themselves, and any constructor dependency is mocked.
 

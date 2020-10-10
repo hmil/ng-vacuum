@@ -1,5 +1,8 @@
+import { EventEmitter } from '@angular/core';
 import { flush } from '@angular/core/testing';
+import { Observable } from 'rxjs';
 import { Rendering } from 'shallow-render/dist/lib/models/rendering';
+import { KeysOfType } from 'shallow-render/dist/lib/tools/output-proxy';
 export { Rendering } from 'shallow-render/dist/lib/models/rendering';
 
 /**
@@ -27,14 +30,13 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
     }
 
     /**
-     * Sets the values bound to the template.
+     * Sets the values bound to the inputs of the component.
      * 
-     * The page object must be created with `getShallow(...).render()` and an initial binding value must be
-     * provided for each binding you intend to update.
+     * Initial values must be provided for each input in `renderComponent`.
      * 
      * @param values New values to assign to the component's `@Input` bindings.
      */
-    setBoundValues(values: Partial<TBindings>): void {
+    setInputs(values: Partial<TBindings>): void {
         for (const key of Object.keys(values) as Array<keyof TBindings>) {
             if (key in values) {
                 this.rendering.bindings[key] = values[key] as any;
@@ -42,4 +44,64 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
         }
         this.detectChanges();
     }
+
+    /**
+     * Returns the bound inputs of this component.
+     */
+    get inputs(): TBindings {
+        return this.rendering.bindings;
+    }
+
+    /**
+     * List of outputs exported by this component.
+     */
+    get outputs(): { [P in KeysOfType<TComponent, EventEmitter<any>>]: OutputCapture<SubjectType<TComponent[P]>>} {
+        let proxy = outputsCache.get(this);
+        if (!proxy) {
+            proxy = captureOutputs(this.rendering.outputs)
+            outputsCache.set(this, proxy);
+        }
+        return proxy;
+    }
+}
+
+const outputsCache = new WeakMap<BasePage<any, any>, any>();
+
+interface OutputCapture<T> {
+    /**
+     * Capture all events emitted by this output starting now.
+     * 
+     * @returns a mutable array which gets appended each emitted value as it is emitted
+     */
+    capture(): T[];
+
+    /**
+     * Subscribe to this event emitter
+     * @see EventEmitter.prototype.subscribe
+     */
+    subscribe(listener: (event: T) => void): void;
+}
+
+type SubjectType<T extends Observable<any>> = T extends Observable<infer O> ? O : never;
+
+function captureOutputs(outputs: { [k: string]: EventEmitter<any>}) {
+    return new Proxy(
+        {},
+        {
+            get: (_, key: keyof typeof outputs) => {
+                const obs = outputs[key] as any;
+                return {
+                    capture: () => captureObservable(obs),
+                    subscribe: (l: (event: any) => void) => obs.subscribe(l)
+                };
+            },
+        }
+    ) as any;
+}
+
+function captureObservable<T>(obs: Observable<T>): T[] {
+    let capture: T[] = [];
+
+    obs.subscribe(value => capture.push(value));
+    return capture;
 }

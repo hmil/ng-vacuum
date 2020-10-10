@@ -1,23 +1,21 @@
 import { fakeAsync } from '@angular/core/testing';
-import { BasePage, getShallow, renderComponent } from 'ng-vacuum';
+import { BasePage, renderComponent } from 'ng-vacuum';
 
 import { AppModule } from './app.module';
 import { FancyButtonComponent } from './fancy-button.component';
 
 describe('FancyButtonComponent', () => {
 
-    let page: Page;
-
-    it('shows default values', fakeAsync(async () => {
-        page = new Page(await renderComponent(FancyButtonComponent, AppModule));
+    it('shows default values', fakeAsync(() => {
+        const page = new Page(renderComponent(FancyButtonComponent, AppModule));
         expect(page.confirmBtnLabel).toBe('Happy');
         expect(page.cancelBtnLabel).toBe('Sad');
         expect(page.description).toBe('Chose between Happy or Sad');
     }));
 
-    it('shows confirm and cancel labels', fakeAsync(async () => {
-        page = new Page(await getShallow(FancyButtonComponent, AppModule).render({
-            bind: {
+    it('shows confirm and cancel labels', fakeAsync(() => {
+        const page = new Page(renderComponent(FancyButtonComponent, AppModule, {
+            inputs: {
                 confirmLabel: 'hello',
                 cancelLabel: 'goodbye'
             }
@@ -25,7 +23,7 @@ describe('FancyButtonComponent', () => {
         expect(page.confirmBtnLabel).toBe('hello');
         expect(page.cancelBtnLabel).toBe('goodbye');
         expect(page.description).toBe('Chose between hello or goodbye');
-        page.setBoundValues({
+        page.setInputs({
             confirmLabel: 'Gruetzi',
             cancelLabel: 'Tschuss'
         });
@@ -33,19 +31,38 @@ describe('FancyButtonComponent', () => {
         expect(page.cancelBtnLabel).toBe('Tschuss');
         expect(page.description).toBe('Chose between Gruetzi or Tschuss');
     }));
+
+    it('emits click events', fakeAsync(() => {
+        const page = new Page(renderComponent(FancyButtonComponent, AppModule));
+
+        const emittedValues = page.outputs.clicked.capture();
+        page.confirmBtn.click();
+        expect(emittedValues).toEqual(['confirm']);
+
+        page.cancelBtn.click();
+        expect(emittedValues).toEqual(['confirm', 'cancel']);
+    }));
 });
 
-class Page extends BasePage<FancyButtonComponent> {
+class Page<T> extends BasePage<FancyButtonComponent, T> {
 
     get confirmBtnLabel(): string {
-        return (this.rendering.find('[test-id=confirm-btn]').nativeElement as HTMLButtonElement).innerText;
+        return this.confirmBtn.innerText;
     }
 
-    get cancelBtnLabel() {
-        return (this.rendering.find('[test-id=cancel-btn]').nativeElement as HTMLButtonElement).innerText;
+    get cancelBtnLabel(): string {
+        return this.cancelBtn.innerText;
     }
 
-    get description() {
+    get description(): string {
         return (this.rendering.find('[test-id=description]').nativeElement as HTMLDivElement).innerText;
+    }
+
+    get confirmBtn(): HTMLButtonElement {
+        return this.rendering.find('[test-id=confirm-btn]').nativeElement;
+    }
+
+    get cancelBtn(): HTMLButtonElement {
+        return this.rendering.find('[test-id=cancel-btn]').nativeElement;
     }
 }

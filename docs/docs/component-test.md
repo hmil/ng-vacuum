@@ -51,7 +51,7 @@ export class MyComponent {
 }
 ```
 
-The sample component uses the global `console` object, injected using an [`InjectionToken`](https://angular.io/api/core/InjectionToken), to give this tutorial a bit more uumpf.
+The sample component uses the global `console` object, injected using an [`InjectionToken`](https://angular.io/api/core/InjectionToken), to give this tutorial a bit more depth.
 
 
 ## Scaffolding
@@ -62,14 +62,15 @@ NgVcuum provides a utility class to simplify the setup of the page object
 
 ```ts
 import { BasePage, renderComponent } from 'ng-vacuum';
+import { fakeAsync } from '@angular/core/testing';
 
 describe('MyComponent', () => {
 
     let page: Page;
 
-    beforeEach(async () => {
-        page = new Page(await renderComponent(MyComponent, AppModule));
-    });
+    beforeEach(fakeAsync(() => {
+        page = new Page(renderComponent(MyComponent, AppModule));
+    }));
 });
 
 class Page extends BasePage<MyComponent> { }
@@ -137,10 +138,10 @@ We need to specify the behavior of `AuthService` _before_ rendering the componen
 Let's do this. We move the mock behavior to the `beforeEach` function:
 
 ```ts
-beforeEach(async () => {
+beforeEach(fakeAsync(() => {
     when(getMock(AuthService).authenticated).return(false); // Add here
-    page = new Page(await renderComponent(AppComponent, AppModule));
-});
+    page = new Page(renderComponent(AppComponent, AppModule));
+}));
 
 it('lets user log in when not authenticated', fakeAsync(() => {
     // Remove from here
@@ -182,11 +183,11 @@ describe('AppComponent', () => {
 
     let isAuthenticated: boolean;
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
-        page = new Page(await renderComponent(AppComponent, AppModule));
-    });
+        page = new Page(renderComponent(AppComponent, AppModule));
+    }));
 
 // snip
 ```
@@ -225,12 +226,12 @@ describe('AppComponent', () => {
     let page: Page;
     let isAuthenticated: boolean;
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync(() => {
         isAuthenticated = false;
         // Mock data required by the template
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
-        page = new Page(await renderComponent(AppComponent, AppModule));
-    });
+        page = new Page(renderComponent(AppComponent, AppModule));
+    }));
 
     it('lets user log in when not authenticated', fakeAsync(() => {
         // Ensure the tempalte is fully rendered

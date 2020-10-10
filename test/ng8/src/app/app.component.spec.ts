@@ -9,17 +9,16 @@ import { CONSOLE } from './auth/app.providers';
 
 describe('AppComponent', () => {
 
-    let page: Page;
-
     let isAuthenticated: boolean;
 
-    beforeEach(async () => {
+    function createPage() {
         isAuthenticated = false;
         when(getMock(AuthService).isAuthenticated()).useGetter(() => isAuthenticated);
-        page = new Page(await renderComponent(AppComponent, AppModule));
-    });
+        return new Page(renderComponent(AppComponent, AppModule));
+    }
 
     it('lets user log in when not authenticated', fakeAsync(() => {
+        const page = createPage();
         when(getMock(AuthService).setAuthenticated(true)).return().once();
         page.detectChanges();
         page.loginButton.click();
@@ -27,6 +26,7 @@ describe('AppComponent', () => {
     }));
 
     it('presents a fancy button when authenticated', fakeAsync(() => {
+        const page = createPage();
         isAuthenticated = true;
         page.detectChanges();
         expect(page.fancyButton.confirmLabel).toBe('Got it');
