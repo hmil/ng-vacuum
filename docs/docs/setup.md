@@ -6,7 +6,7 @@ sidebar_label: Setup
 
 :::note
 
-NgVacuum is officially compatible with angular 7, 8 and 9.
+NgVacuum is officially compatible with Angular versions 7 through 10.
 
 :::
 
