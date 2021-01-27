@@ -67,6 +67,6 @@ describe('AccessControlService', () => {
 });
 ```
 
-This example barly scratches the surface. NgVacuum packs a ton of useful features like shallow rendering and type-safe mocks which are designed to maximize the usefulness of unit tests while minimizing their maintainance cost.
+This example barely scratches the surface. NgVacuum packs a ton of useful features like shallow rendering and type-safe mocks which are designed to maximize the usefulness of unit tests while minimizing their maintainance cost.
 
 Read the [online documentation](https://code.hmil.fr/ng-vacuum/) to get started.
