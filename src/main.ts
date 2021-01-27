@@ -18,13 +18,15 @@ import { store } from './mocks-store';
 
 /**
  * Manually create a mock with an optional backing object.
- *
- * This function must be called before `getService`, `getShallow`, or `renderComponent`.
- *
+ * 
+ * @remarks
+ * This function must be called before `getService`, `getShallow`, or `renderComponent`.  
  * Any subsequent call to `getMock` with the same injection token will return the mock created with `createMock`.
  *
- * @param token The injection token to mock
- * @param backing An optional backing object for the omnimock mock
+ * @param token - The injection token to mock
+ * @param backing - An optional backing object for the omnimock mock
+ * 
+ * @public
  */
 export function createMock<T>(token: Type<T> | InjectionToken<T>, backing?: Partial<T>): Mock<T> {
     if (store.hasMock(token)) {
@@ -36,11 +38,14 @@ export function createMock<T>(token: Type<T> | InjectionToken<T>, backing?: Part
 
 /**
  * Returns the mock for the provided injection token. If no such mock exists yet, one is created.
- *
+ * 
+ * @remarks
  * Mocks are automatically created for all injection tokens required to instantiate a service or component
  * with `getService` or `renderComponent`.
  *
- * @param token The injection token whose mock to retreive
+ * @param token - The injection token whose mock to retreive
+ * 
+ * @public
  */
 export function getMock<T>(token: Type<T> | InjectionToken<T>): Mock<T> {
     const m = store.getMock(token);
@@ -52,8 +57,11 @@ export function getMock<T>(token: Type<T> | InjectionToken<T>): Mock<T> {
 
 /**
  * Configures the angular TestBed with mocks for all of the dependencies of the service.
- *
+ * 
+ * @remarks
  * Only use this if you would like to customize the dependencies before creating a service. In general, you should use getService instead.
+ * 
+ * @public
  */
 export function configureTestBed(service: Type<unknown>): void {
     const providers: any[] = store.getMockProviders();
@@ -66,8 +74,12 @@ export function configureTestBed(service: Type<unknown>): void {
 /**
  * Instantiate a service by providing mocks for all of its dependencies.
  *
+ * @remarks
  * A mock is automatically created for all dependencies of the service which are not mocked yet.
- * @param testService the service to test
+ * 
+ * @param testService - the service to test
+ * 
+ * @public
  */
 export function getService<T>(testService: Type<T>): T {
     createMocks(testService);
@@ -80,7 +92,10 @@ export function getService<T>(testService: Type<T>): T {
  * 
  * Use this method if you would like to further customize the renderer. In most cases, renderComponent should be used instead.
  *
- * @param testModule 
+ * @param testComponent - The component to create
+ * @param testModule - The module containing the component
+ * 
+ * @public
  */
 export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | ModuleWithProviders<any>): Shallow<T> {
 
@@ -97,6 +112,9 @@ export function getShallow<T>(testComponent: Type<T>, testModule: Type<any> | Mo
     return shallow;
 }
 
+/**
+ * @public
+ */
 export interface RenderSettings<TBindings> {
     inputs: TBindings;
 }
@@ -105,7 +123,9 @@ export interface RenderSettings<TBindings> {
  * Shallow-renders a component, meaning that its children components are not rendered themselves,
  * and any constructor dependency is mocked.
  *
- * @param testComponent The component to render
+ * @param testComponent - The component to render
+ * 
+ * @public
  */
 export function renderComponent<T, TBindings extends Partial<T>>(
     testComponent: Type<T>,

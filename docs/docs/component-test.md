@@ -76,8 +76,8 @@ describe('MyComponent', () => {
 class Page extends BasePage<MyComponent> { }
 ```
 
-[`renderComponent`](./api-reference#rendercomponenttcomponent-typet-module-typeany--modulewithproviders-promiserenderingt-never) internally invokes [shallow-render](https://getsaf.github.io/shallow-render/#shallow-render) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
-If you would like to get a reference to the [Shallow](https://getsaf.github.io/shallow-render/#shallow-class) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](./api-reference#getshallowtcomponent-typet-module-typeany--modulewithproviders-shallowt) instead.
+[`renderComponent`](./api/ng-vacuum.rendercomponent) internally invokes [shallow-render](https://getsaf.github.io/shallow-render/#shallow-render) to create a shallow rendering of the component, and takes care of creating an omnimock for each of the component's service dependencies.
+If you would like to get a reference to the [Shallow](https://getsaf.github.io/shallow-render/#shallow-class) instance, to apply advanced customizations and to bind data, you can use [`getShallow`](./api/ng-vacuum.getshallow) instead.
 
 
 ## Populate the page object
@@ -98,7 +98,7 @@ class Page extends BasePage<MyComponent> {
 }
 ```
 
-We use the `rendering` instance member from [`BasePage`](./api-reference#class-basepaget) to find components in the template.
+We use the `rendering` instance member from [`BasePage`](./api/ng-vacuum.basepage) to find components in the template.
 
 ## Write a test
 

@@ -8,13 +8,16 @@ export { Rendering } from 'shallow-render/dist/lib/models/rendering';
 /**
  * Base class for test page objects.
  * 
+ * @remarks
  * Wraps some of the boilerplate required to write clean component tests. 
+ * 
+ * @public
  */
 export class BasePage<TComponent, TBindings = Partial<TComponent>> {
 
     /**
      * Build the new page object.
-     * @param rendering The rendering object obtained with `renderComponent` or `getShallow().<...>.render();`.
+     * @param rendering - The rendering object obtained with `renderComponent` or `getShallow().render();`.
      */
     constructor(public readonly rendering: Rendering<TComponent, TBindings>) { }
 
@@ -34,7 +37,7 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
      * 
      * Initial values must be provided for each input in `renderComponent`.
      * 
-     * @param values New values to assign to the component's `@Input` bindings.
+     * @param values - New values to assign to the component's `@Input` bindings.
      */
     setInputs(values: Partial<TBindings>): void {
         for (const key of Object.keys(values) as Array<keyof TBindings>) {
@@ -67,7 +70,10 @@ export class BasePage<TComponent, TBindings = Partial<TComponent>> {
 
 const outputsCache = new WeakMap<BasePage<any, any>, any>();
 
-interface OutputCapture<T> {
+/**
+ * @public
+ */
+export interface OutputCapture<T> {
     /**
      * Capture all events emitted by this output starting now.
      * 
@@ -77,12 +83,16 @@ interface OutputCapture<T> {
 
     /**
      * Subscribe to this event emitter
-     * @see EventEmitter.prototype.subscribe
+     * @remarks
+     * See {@link https://angular.io/api/core/EventEmitter#subscribe | EventEmitter.subscribe}
      */
     subscribe(listener: (event: T) => void): void;
 }
 
-type SubjectType<T extends Observable<any>> = T extends Observable<infer O> ? O : never;
+/**
+ * @public
+ */
+export type SubjectType<T extends Observable<any>> = T extends Observable<infer O> ? O : never;
 
 function captureOutputs(outputs: { [k: string]: EventEmitter<any>}) {
     return new Proxy(

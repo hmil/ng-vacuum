@@ -8,6 +8,7 @@
     "author": "Hadrien Milano <hmil.fr>",
     "license": "MIT",
     "scripts": {
+        "build:doc": "api-extractor run --local && api-documenter markdown -i build -o build/docs/api && node scripts/process-docs.js",
         "build": "ng-packagr -p package.json",
         "release": "./scripts/release.sh"
     },
@@ -19,10 +20,12 @@
         "@angular/core": "9.1.0",
         "@angular/forms": "9.1.0",
         "@angular/platform-browser": "9.1.0",
+        "@microsoft/api-documenter": "^7.12.6",
+        "@microsoft/api-extractor": "^7.13.0",
         "@types/jasmine": "~3.5.0",
         "@types/node": "^13.11.0",
         "ng-packagr": "9.1.0",
-        "omnimock": "0.8.0",
+        "omnimock": "1.0.0-rc.1",
         "rollup": "1.20.0",
         "rxjs": "^6.5.5",
         "shallow-render": "9.0.0",
@@ -33,7 +36,7 @@
     "peerDependencies": {
         "@angular/core": "^9.0.0",
         "@angular/platform-browser": "^9.0.0",
-        "omnimock": "^0.8.0",
+        "omnimock": "^0.8.0 || ^1.0.0",
         "shallow-render": ">=8.0.0"
     },
     "ngPackage": {

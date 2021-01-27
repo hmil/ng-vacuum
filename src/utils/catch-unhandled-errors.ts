@@ -4,8 +4,11 @@ import { ErrorHandler } from "@angular/core";
 /**
  * Catches all unhandled errors during test execution and fails the test if any error occurs.
  * 
+ * @remarks
  * The default angular config allows many errors to escape the test suite which can lead to silent errors.
  * Call this utility in the `test.ts` file to catch these errors before they can escape!
+ * 
+ * @public
  */
 export function catchUnhandledErrors(): void {
 
