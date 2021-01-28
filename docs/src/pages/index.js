@@ -61,8 +61,8 @@ function Home() {
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className={classnames('hero__title', styles.heroTitle)}>
-            <img src="img/vacuum.svg" class={classnames(styles.heroImage)}/>
-            Write <span class={classnames(styles.heroKeyword)}>maintainable</span> tests<br /> with less <span class={classnames(styles.heroKeyword)}>boilerplate</span>.
+            <img src="img/vacuum.svg" className={classnames(styles.heroImage)}/>
+            Write <span className={classnames(styles.heroKeyword)}>maintainable</span> tests<br /> with less <span className={classnames(styles.heroKeyword)}>boilerplate</span>.
           </h1>
           <div className={styles.buttons}>
             <Link

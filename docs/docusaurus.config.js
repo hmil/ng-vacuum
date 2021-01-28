@@ -7,17 +7,28 @@ module.exports = {
   organizationName: 'hmil', // Usually your GitHub org/user name.
   projectName: 'ng-vacuum', // Usually your repo name.
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: true,
+      respectPrefersColorScheme: true,
+    },
     navbar: {
       title: 'NgVacuum',
       logo: {
         alt: 'Ng Vacuum Logo',
         src: 'img/vacuum.svg',
       },
-      links: [
+      items: [
         {
           to: 'docs/setup',
-          activeBasePath: 'docs',
+          activeBaseRegex: 'docs(?!/api)',
           label: 'Docs',
+          position: 'left',
+        },
+        {
+          to: 'docs/api/ng-vacuum',
+          activeBasePath: 'docs/api',
+          label: 'Reference',
           position: 'left',
         },
         {
@@ -84,4 +95,17 @@ module.exports = {
       },
     ],
   ],
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: '/docs/api/ng-vacuum',
+            from: '/docs/api-reference',
+          },
+        ],
+      }
+    ]
+  ]
 };
